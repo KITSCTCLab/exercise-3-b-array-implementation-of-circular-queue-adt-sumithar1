@@ -6,14 +6,14 @@ class MyCircularQueue:
         self.front = -1
 
     def enqueue(self, value: int) -> bool:
-        if not self.is_queue_full():
+        if not self.is_full():
             if  self.front == -1:
                 self.front = 0
             self.rear += 1
             self.queue.append(character)
 
     def dequeue(self) -> bool:
-        if not self.is_queue_empty():
+        if not self.is_empty():
             self.front += 1
             return self.queue[self.front - 1] 
 
