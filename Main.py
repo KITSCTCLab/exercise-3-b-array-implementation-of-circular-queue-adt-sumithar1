@@ -18,7 +18,7 @@ class MyCircularQueue:
             return self.queue[self.front - 1] 
 
     def get_front(self) -> int:
-        return self.queue[self.front]
+        return self.queue[self.front-1]
 
     def get_rear(self):
         return self.queue[self.rear]
