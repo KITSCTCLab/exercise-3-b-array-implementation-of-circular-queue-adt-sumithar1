@@ -2,37 +2,47 @@ class MyCircularQueue:
     def __init__(self, size: int):
         self.queue = [0] * size
         self.size = size
-        self.rear = -1
         self.front = -1
+        self.rear = -1
 
     def enqueue(self, value: int) -> bool:
-        if not self.is_full():
-            if  self.front == -1:
-                self.front = 0
-            self.rear += 1
-            self.queue.append(value)
+        if self.is_full():
+            return False
+        if self.front == -1:
+            self.front = 0
+            self.rear = 0
+        else:
+            self.rear = (self.rear + 1) % self.size
+        self.queue[self.rear] = value
+        return True
 
     def dequeue(self) -> bool:
-        if not self.is_empty():
-            self.front += 1
-            return self.queue[self.front - 1] 
+        if self.is_empty(): 
+            return False
+        if self.front == self.rear:
+            self.front, self.rear = -1, -1
+        else:
+            self.front = (self.front + 1) % self.size
+        return True
 
     def get_front(self) -> int:
-        if self.front != -1:
+        if not self.is_empty():
             return self.queue[self.front]
+        return -1
 
     def get_rear(self):
-        if self.rear != -1:
+        if not self.is_empty():
             return self.queue[self.rear]
+        return -1
 
     def is_empty(self):
-        return self.front == -1 or self.front > self.rear
+        return self.front == -1
 
     def is_full(self):
-        return self.rear == self.size - 1
+        return (self.front == 0 and self.rear == (self.size - 1)) or (self.front == (self.rear + 1) % self.size)
 
 
-# Do not change the following code
+# Do not change the following codeT
 operations = []
 for specific_operation in input().split(','):
     operations.append(specific_operation.strip())
